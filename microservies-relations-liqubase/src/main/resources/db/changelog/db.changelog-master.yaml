@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - includeAll:
+      path: db/changelog/v-0.1-user-entities/
+  - includeAll:
+      path: db/changelog/v-0.2/
+  - includeAll:
+      path: db/changelog/v-0.3-session-history/

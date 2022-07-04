@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20220627-01
+      author: elgunsh
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: user_pk
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: surname
+                  type: VARCHAR(255)
+              - column:
+                  name: age
+                  type: int
+        - sql:
+            sql: "ALTER TABLE user AUTO_INCREMENT=1;"
+

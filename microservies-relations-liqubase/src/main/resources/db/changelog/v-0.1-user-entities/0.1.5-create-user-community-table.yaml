@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20220627-05
+      author: elgunsh
+      changes:
+        - createTable:
+            tableName: user_communities
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: user_communities_pk
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+              - column:
+                  name: communities_id
+                  type: bigint
+        - addForeignKeyConstraint:
+            baseTableName: user_communities
+            baseColumnNames: user_id
+            constraintName: user_communities_fk
+            referencedTableName: user
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: user_communities
+            baseColumnNames: communities_id
+            constraintName: communities_user_fk
+            referencedTableName: community
+            referencedColumnNames: id
+            onDelete: RESTRICT
+            onUpdate: CASCADE
+        - sql:
+            sql: "ALTER TABLE user_communities AUTO_INCREMENT=1;"
+

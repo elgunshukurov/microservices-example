@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20220627-02
+      author: elgunsh
+      changes:
+        - createTable:
+            tableName: mail
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: mail_pk
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: user_id
+                  type: bigint
+        - addForeignKeyConstraint:
+            baseTableName: mail
+            baseColumnNames: user_id
+            constraintName: user_mail_fk
+            referencedTableName: user
+            referencedColumnNames: id
+#            onDelete: CASCADE
+        - sql:
+            sql: "ALTER TABLE mail AUTO_INCREMENT=1;"
+

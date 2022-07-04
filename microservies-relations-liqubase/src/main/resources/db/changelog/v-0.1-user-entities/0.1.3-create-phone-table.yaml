@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20220627-03
+      author: elgunsh
+      changes:
+        - createTable:
+            tableName: phone
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: phone_pk
+                    nullable: false
+              - column:
+                  name: phone
+                  type: VARCHAR(255)
+              - column:
+                  name: user_id
+                  type: bigint
+        - addForeignKeyConstraint:
+            baseTableName: phone
+            baseColumnNames: user_id
+            constraintName: user_phone_fk
+            referencedTableName: user
+            referencedColumnNames: id
+#            onDelete: CASCADE
+        - sql:
+            sql: "ALTER TABLE phone AUTO_INCREMENT=1;"
+

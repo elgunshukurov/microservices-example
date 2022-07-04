@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20220627-02-01
+      author: elgunsh
+      changes:
+        - insert:
+            tableName: user
+            columns:
+              - column:
+                  name: name
+                  value: 'Super'
+              - column:
+                  name: surname
+                  value: 'User'
+              - column:
+                  name: age
+                  value: '27'

@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://${DB_CONNECTION_IP:localhost}:${DB_CONNECTION_PORT:3306}/user?allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8
+    username: ${DB_CONNECTION_USERNAME:root}
+    password: ${DB_CONNECTION_PASSWORD:password}
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: validate
+
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQLInnoDBDialect
+
+
+
+
+

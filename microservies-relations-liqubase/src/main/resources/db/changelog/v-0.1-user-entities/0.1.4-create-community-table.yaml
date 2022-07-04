@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20220627-04
+      author: elgunsh
+      changes:
+        - createTable:
+            tableName: community
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: community_pk
+                    nullable: false
+              - column:
+                  name: community_name
+                  type: VARCHAR(255)
+        - sql:
+            sql: "ALTER TABLE community AUTO_INCREMENT=1;"
+
