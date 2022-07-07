@@ -1,14 +1,12 @@
-package az.elgunsh.microservicesspringtransactions.service.impl;
+package az.elgunsh.microservicesspringentitymanager.service.impl;
 
-import az.elgunsh.microservicesspringtransactions.aop.CTransactional;
-import az.elgunsh.microservicesspringtransactions.domain.User;
-import az.elgunsh.microservicesspringtransactions.dto.UserRequestDto;
-import az.elgunsh.microservicesspringtransactions.dto.UserResponseDto;
-import az.elgunsh.microservicesspringtransactions.exception.UserException;
-import az.elgunsh.microservicesspringtransactions.mapper.UserMapper;
-import az.elgunsh.microservicesspringtransactions.model.PaginationInfo;
-import az.elgunsh.microservicesspringtransactions.repository.UserRepo;
-import az.elgunsh.microservicesspringtransactions.service.UserService;
+import az.elgunsh.microservicesspringentitymanager.domain.User;
+import az.elgunsh.microservicesspringentitymanager.dto.UserRequestDto;
+import az.elgunsh.microservicesspringentitymanager.dto.UserResponseDto;
+import az.elgunsh.microservicesspringentitymanager.mapper.UserMapper;
+import az.elgunsh.microservicesspringentitymanager.model.PaginationInfo;
+import az.elgunsh.microservicesspringentitymanager.repository.UserRepo;
+import az.elgunsh.microservicesspringentitymanager.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
@@ -33,10 +31,8 @@ import java.util.Map;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserImpl implements UserService, ApplicationContextAware, BeanNameAware {
+public class UserImpl implements UserService {
     private final UserRepo userRepo;
-    private ApplicationContext applicationContext;
-    private String beanName;
 
     public List<UserResponseDto> getUserByCriteria(Map<String, String> map) {
         Page<User> page = userRepo.findAll(getUserWithSpec(map), makePageable(map));
@@ -98,20 +94,8 @@ public class UserImpl implements UserService, ApplicationContextAware, BeanNameA
     }
 
     @Override
-    public UserResponseDto saveUser(UserRequestDto dto) throws UserException {
-        return ((UserImpl)applicationContext.getBean(beanName)).internalMethodCall(dto);
-//        return internalMethodCall(dto);
-    }
-
-    @CTransactional
-    public UserResponseDto internalMethodCall(UserRequestDto dto) throws UserException {
+    public UserResponseDto saveUser(UserRequestDto dto){
         User user = userRepo.save(UserMapper.INSTANCE.toEntity(dto));
-        if (true) {
-            throw new RuntimeException();
-        }
-//        if (true){
-//            throw new UserException();
-//        }
         return UserMapper.INSTANCE.toDto(user);
     }
 
@@ -135,15 +119,5 @@ public class UserImpl implements UserService, ApplicationContextAware, BeanNameA
             throw new IllegalArgumentException();
         }
         return id;
-    }
-
-    @Override
-    public void setBeanName(String name) {
-        this.beanName = name;
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
     }
 }

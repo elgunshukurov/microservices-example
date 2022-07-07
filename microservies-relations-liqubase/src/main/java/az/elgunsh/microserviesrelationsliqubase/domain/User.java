@@ -20,12 +20,12 @@ public class User implements Serializable {
     private String surname;
     private int age;
 
-    @OneToOne( mappedBy = "user")
+    @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "user")
     private Mail mail;
 
-    @OneToMany(cascade=CascadeType.REMOVE, mappedBy = "user", fetch = LAZY)
+    @OneToMany(cascade=CascadeType.REFRESH, mappedBy = "user", fetch = LAZY)
     private List<Phone> phones;
 
-    @ManyToMany(cascade=CascadeType.REMOVE, fetch = LAZY)
+    @ManyToMany(cascade=CascadeType.REFRESH, fetch = LAZY)
     private List<Community> communities;
 }
