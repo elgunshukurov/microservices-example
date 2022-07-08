@@ -16,8 +16,6 @@ import java.util.Optional;
 public class UserRefreshImpl implements UserRefreshService {
     private final UserRepo userRepo;
     private final RefreshRepository refreshRepository;
-    private final PhoneRepo phoneRepo;
-    private final CommunityRepo communityRepo;
 
     @Transactional
     @Override
