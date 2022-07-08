@@ -27,7 +27,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserResponseDto saveInfo(@RequestBody UserRequestDto userDto) throws  Throwable{
+    public UserResponseDto saveInfo(@RequestBody UserRequestDto userDto) {
         return service.saveUser(userDto);
     }
 

@@ -1,10 +1,13 @@
 package az.elgunsh.microservicesspringentitymanager.service.impl;
 
+import az.elgunsh.microservicesspringentitymanager.domain.Contact;
 import az.elgunsh.microservicesspringentitymanager.domain.User;
 import az.elgunsh.microservicesspringentitymanager.dto.UserRequestDto;
 import az.elgunsh.microservicesspringentitymanager.dto.UserResponseDto;
+import az.elgunsh.microservicesspringentitymanager.mapper.ContactMapper;
 import az.elgunsh.microservicesspringentitymanager.mapper.UserMapper;
 import az.elgunsh.microservicesspringentitymanager.model.PaginationInfo;
+import az.elgunsh.microservicesspringentitymanager.repository.ContactRepo;
 import az.elgunsh.microservicesspringentitymanager.repository.UserRepo;
 import az.elgunsh.microservicesspringentitymanager.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +36,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserImpl implements UserService {
     private final UserRepo userRepo;
+    private final ContactRepo contactRepo;
 
     public List<UserResponseDto> getUserByCriteria(Map<String, String> map) {
         Page<User> page = userRepo.findAll(getUserWithSpec(map), makePageable(map));
@@ -94,8 +98,12 @@ public class UserImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserResponseDto saveUser(UserRequestDto dto){
         User user = userRepo.save(UserMapper.INSTANCE.toEntity(dto));
+        List<Contact> contacts = contactRepo.saveAll(ContactMapper.INSTANCE.toEntity(dto.getContacts()));
+        contacts.forEach(it -> it.setUser(user));
+        user.setContacts(contacts);
         return UserMapper.INSTANCE.toDto(user);
     }
 

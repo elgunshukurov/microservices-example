@@ -27,7 +27,8 @@ public class UserController {
     @GetMapping("/criteria")
     public List<UserResponseDto> getInfoByCriteria(
             @RequestParam Map<String, String> map) {
-        return service.getUserByCriteria(map);
+        List<UserResponseDto> userByCriteria = service.getUserByCriteria(map);
+        return userByCriteria;
     }
 
     @PostMapping

@@ -18,17 +18,29 @@ public class CustomRepoImpl<T, ID>
         this.entityManager = entityManager;
     }
 
+
     @Transactional
     @Override
     public void refresh(T t) {
         entityManager.refresh(t);
     }
 
+
+    // Parametr olaraq ötürdüyümüz entity-ni L1 cache-dən silir
     @Transactional
     @Override
     public void detach(T t) {
         entityManager.detach(t);
     }
+
+
+    // L1 cache-dən bütün entity-ləri silir
+    @Transactional
+    @Override
+    public void clear() {
+        entityManager.clear();
+    }
+
     @Transactional
     @Override
     public void flush() {

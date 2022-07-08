@@ -17,20 +17,24 @@ public class UserEMImpl implements UserEMService {
     private final UserRepo userRepo;
 //    private final RefreshRepository refreshRepository;
 
-    @Transactional
+//    @Transactional
     @Override
     public void refresh() {
-        log.error(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        log.error("\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         log.error("refresh method starter working (UserRefreshImpl)");
         Optional<User> byId1 = userRepo.findById(1L);
+        log.info("1) user details which id is 1 -> {}", byId1);
 
-        log.error("next query uploading   ----------------------------------------");
+        log.error("\nnext query uploading   ----------------------------------------");
 
-        userRepo.detach(byId1.get());
+//        userRepo.clear();
+//        userRepo.detach(byId1.get());
 //        userRepo.refresh(byId1.get());
 
         userRepo.findById(1L);
+        log.info("2) user details which id is 1 -> {}", byId1);
+
         log.error("refresh method ended working (UserRefreshImpl)");
-        log.error("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+        log.error("\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");
     }
 }

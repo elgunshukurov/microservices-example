@@ -17,6 +17,6 @@ public interface UserMapper {
 
     UserResponseDto toDto(User source);
 
-    List<UserResponseDto> toDto(List<User> employees);
+    List<UserResponseDto> toDto(List<User> source);
 
 }
