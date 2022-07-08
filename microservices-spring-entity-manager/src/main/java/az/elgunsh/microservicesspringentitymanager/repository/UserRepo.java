@@ -21,6 +21,10 @@ public interface UserRepo
     @Override
     Optional<User> findById(Long aLong);
 
+    @EntityGraph(value = "user_contacts_graph", type = EntityGraph.EntityGraphType.FETCH)
+    @Override
+    List<User> findAll();
+
     //    entity graphla birge isletmek
 //    @EntityGraph(value = "graphName", type = EntityGraph.EntityGraphType.FETCH)
 //    List<User> collectWithContacts();

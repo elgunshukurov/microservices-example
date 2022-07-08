@@ -15,24 +15,31 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserEMImpl implements UserEMService {
     private final UserRepo userRepo;
-//    private final RefreshRepository refreshRepository;
 
-//    @Transactional
+    @Transactional
     @Override
     public void refresh() {
         log.error("\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         log.error("refresh method starter working (UserRefreshImpl)");
         Optional<User> byId1 = userRepo.findById(1L);
+        User user = byId1.get();
         log.info("1) user details which id is 1 -> {}", byId1);
 
         log.error("\nnext query uploading   ----------------------------------------");
 
 //        userRepo.clear();
-//        userRepo.detach(byId1.get());
-//        userRepo.refresh(byId1.get());
+//        userRepo.detach(user);
+        userRepo.refresh(user);
+
+//        user.setAge(25);
+//        userRepo.flush();
+//        user.setAge(26);
+
+//        userRepo.remove(user);
+
 
         userRepo.findById(1L);
-        log.info("2) user details which id is 1 -> {}", byId1);
+        log.info("2) user details which id is 1 -> {}", user);
 
         log.error("refresh method ended working (UserRefreshImpl)");
         log.error("\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");

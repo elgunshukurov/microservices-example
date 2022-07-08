@@ -27,7 +27,7 @@ public class User {
     private int age;
 
     @OneToMany(mappedBy = "user",
-//            cascade = CascadeType.REFRESH,
+//            cascade = CascadeType.DETACH,
             fetch = FetchType.LAZY)
     private List<Contact> contacts;
 }
