@@ -6,7 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component@Data@ToString
+@Component
+@Data
+@ToString
 public class UserResponseDto {
     private long id;
     private String name;

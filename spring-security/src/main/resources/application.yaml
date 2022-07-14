@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: ${ACTIVE_PROFILE:dev}
+    include:
+      - db
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org.springframework.orm.jpa: trace
+    org.springframework.transaction: trace
+
+
+
