@@ -1,4 +1,4 @@
-package az.elgunsh.springsecurity.controller;
+package az.elgunsh.springsecuritying.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
