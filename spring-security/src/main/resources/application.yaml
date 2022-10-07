@@ -3,6 +3,7 @@ spring:
     active: ${ACTIVE_PROFILE:dev}
     include:
       - db
+      - security
 
 server:
   port: 8080
@@ -10,7 +11,7 @@ server:
 logging:
   level:
     org.springframework.orm.jpa: trace
-    org.springframework.transaction: trace
+    org.springframework.security: trace
 
 
 

@@ -26,14 +26,19 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+    // bunu cagirmaql defolt isleyen AuthenticationManager-i custom hala getiririk
     private final AuthenticationManager authenticationManager;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         Map<String, String[]> parameterMap = request.getParameterMap();
+        /* Bu metodu modify elemekle defolt acilan form login-i deyismis oluruq */
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
+        /* principle dan gelen username passworda esasen token yaradir ve onu bazadaki tokenle qarsilasdirir
+        uygunsuzluq varsa exception atir.
+           Diqqet bu jwt token deyil, sirf spring basa dussun deye hazirlanir */
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
         return authenticationManager.authenticate(token);
     }
@@ -41,8 +46,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         User user = (User) authResult.getPrincipal();
-        Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
+        SecurityProperties applicationProperties = new SecurityProperties();
+        Algorithm algorithm = Algorithm.HMAC256(applicationProperties.getJwtProperties().getSecret().getBytes());
 
+        // jwt token generasiya olunur
         String accessToken = JWT.create().
                 withSubject(user.getUsername()).
                 withIssuer(request.getRequestURL().toString()).

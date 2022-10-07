@@ -11,6 +11,7 @@ logging:
   level:
     org.springframework.orm.jpa: trace
     org.springframework.transaction: trace
+    org.springframework.security: trace
 
 
 

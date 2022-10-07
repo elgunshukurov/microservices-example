@@ -25,6 +25,7 @@ public class UserController {
         return userService.save(user);
     }
 
+    // qismen update eleyirikse patch yaza bilerik
     @PatchMapping
     public void addRole(@RequestBody AddRolesRequest request){
         userService.addRoleTo(request.getUsername(), request.getRoleName());

@@ -23,7 +23,7 @@ public class SpringSecurityApplication {
     CommandLineRunner commandLineRunner(UserService service) {
         return args -> {
             service.save(Role.builder().name("ROLE_USER").build());
-//            service.save(Role.builder().name("ROLE_ADMIN").build());
+            service.save(Role.builder().name("ROLE_ADMIN").build());
 
             service.save(User.builder().name("John")
                     .username("jdoe")

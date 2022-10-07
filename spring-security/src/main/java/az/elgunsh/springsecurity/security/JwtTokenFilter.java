@@ -26,19 +26,23 @@ import java.util.stream.Stream;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
+// login olmus userin tokeni burda yoxlanir
 @RequiredArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if (request.getServletPath().contains("/login")) {
             filterChain.doFilter(request, response);
         } else {
+            SecurityProperties applicationProperties = new SecurityProperties();
             String authHeader = request.getHeader(AUTHORIZATION);
             if (authHeader != null && authHeader.startsWith("Bearer ")) {
                 try {
                     String token = authHeader.split("Bearer ")[1];
-                    Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
+                    Algorithm algorithm = Algorithm.HMAC256(applicationProperties.getJwtProperties().getSecret().getBytes());
                     JWTVerifier jwtVerifier = JWT.require(algorithm).build();
+                    // eger verify da partlasa 401 xeta atacaq
                     DecodedJWT decodedJWT = jwtVerifier.verify(token);
                     String username = decodedJWT.getSubject();
                     List<SimpleGrantedAuthority> authorities =
